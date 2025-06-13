@@ -19,6 +19,13 @@
       font-family: 'Share Tech Mono', monospace;
       user-select: none;
       cursor: none;
+      overflow: auto; /* Allow scrolling */
+      scrollbar-width: none; /* Firefox - hide scrollbar */
+      -ms-overflow-style: none; /* IE/Edge - hide scrollbar */
+    }
+    /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+    body::-webkit-scrollbar {
+      display: none;
     }
     #gridCanvas {
       position: fixed;
@@ -251,16 +258,12 @@
       draw(ctx) {
         ctx.beginPath();
         ctx.fillStyle = `rgba(143, 0, 255, ${this.alpha.toFixed(2)})`;
-        // Removed shadowBlur for performance:
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    // Limit max particles for performance
     const maxParticles = 120;
-
-    // Throttle particle spawn to max 60 per second
     let lastSpawn = 0;
     let mousePos = { x: 0, y: 0 };
     let isMoving = false;
@@ -277,9 +280,8 @@
       if (!lastSpawn) lastSpawn = timestamp;
       const elapsed = timestamp - lastSpawn;
 
-      if (elapsed > 16) { // roughly 60fps, spawn particles at this rate
+      if (elapsed > 16) {
         if (particles.length < maxParticles && isMoving) {
-          // Spawn just 1 particle per tick for smoothness
           particles.push(new Particle(mousePos.x, mousePos.y));
         }
         lastSpawn = timestamp;
