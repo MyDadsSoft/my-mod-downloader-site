@@ -6,9 +6,10 @@
   <title>MyDadsSoft — ETS2 Modding Revolution</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
-    /* Reset */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     html, body {
       width: 100%;
@@ -18,74 +19,44 @@
       font-family: 'Share Tech Mono', monospace;
       user-select: none;
       cursor: none;
-      overflow-x: hidden;
-      overflow-y: auto;
-
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
     }
-    body::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
-    }
-
-    /* Neon Grid Background */
     #gridCanvas {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: 0;
       pointer-events: none;
       filter: drop-shadow(0 0 6px #8f00ff);
     }
-
-    /* Container */
     #container {
       position: relative;
       width: 100%;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       z-index: 10;
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 1rem 6rem;
     }
-
-    /* Logo glitch effect */
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 3.5rem;
       color: #8f00ff;
-      position: relative;
-      user-select: none;
-      text-shadow:
-        0 0 5px #8f00ff,
-        0 0 10px #8f00ff,
-        0 0 20px #00ffe7,
-        0 0 30px #00ffe7,
-        0 0 40px #8f00ff,
-        0 0 70px #00ffe7;
+      text-shadow: 0 0 5px #8f00ff, 0 0 10px #8f00ff, 0 0 20px #00ffe7;
       animation: flicker 3s infinite;
       margin-bottom: 1rem;
     }
     @keyframes flicker {
       0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         opacity: 1;
-        text-shadow:
-          0 0 5px #8f00ff,
-          0 0 10px #8f00ff,
-          0 0 20px #00ffe7,
-          0 0 30px #00ffe7,
-          0 0 40px #8f00ff,
-          0 0 70px #00ffe7;
       }
       20%, 22%, 24%, 55% {
         opacity: 0.6;
-        text-shadow: none;
       }
     }
-
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
@@ -98,11 +69,10 @@
       margin-bottom: 1rem;
     }
     @keyframes gradientShift {
-      0% { background-position: 0% 50%;}
-      50% { background-position: 100% 50%;}
-      100% { background-position: 0% 50%;}
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-
     p.lead {
       font-size: 1.2rem;
       color: #ccc;
@@ -110,15 +80,14 @@
       margin-bottom: 2rem;
       text-shadow: 0 0 5px #8f00ff88;
     }
-
-    .app-preview {
-      width: 90%;
-      max-width: 800px;
+    .app-screenshot {
+      max-width: 90%;
+      height: auto;
+      margin-bottom: 2rem;
+      border: 2px solid #8f00ff44;
+      box-shadow: 0 0 20px #8f00ff66;
       border-radius: 12px;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 0 15px #00ffe755, 0 0 25px #8f00ff44;
     }
-
     a.download-btn {
       display: inline-block;
       font-family: 'Orbitron', sans-serif;
@@ -128,10 +97,7 @@
       background: linear-gradient(45deg, #8f00ff, #00ffe7);
       padding: 0.9rem 3rem;
       border-radius: 40px;
-      box-shadow:
-        0 0 10px #8f00ff,
-        0 0 20px #00ffe7,
-        0 0 40px #8f00ff;
+      box-shadow: 0 0 10px #8f00ff, 0 0 20px #00ffe7;
       text-decoration: none;
       user-select: none;
       transition: transform 0.3s ease, box-shadow 0.4s ease;
@@ -154,119 +120,81 @@
     }
     a.download-btn:hover {
       transform: scale(1.1);
-      box-shadow:
-        0 0 20px #8f00ff,
-        0 0 30px #00ffe7,
-        0 0 50px #00ffe7,
-        0 0 80px #8f00ff;
-      text-shadow: 0 0 10px #8f00ff, 0 0 20px #00ffe7;
+      box-shadow: 0 0 20px #8f00ff, 0 0 40px #00ffe7;
+      text-shadow: 0 0 10px #8f00ff;
     }
     @keyframes shine {
-      0% { transform: rotate(25deg) translateX(-100%) translateY(-100%);}
-      100% { transform: rotate(25deg) translateX(100%) translateY(100%);}
+      0% { transform: rotate(25deg) translateX(-100%) translateY(-100%); }
+      100% { transform: rotate(25deg) translateX(100%) translateY(100%); }
     }
-
     footer {
+      width: 100%;
       text-align: center;
       font-size: 0.85rem;
       color: #666;
       font-family: 'Share Tech Mono', monospace;
       user-select: none;
-      z-index: 15;
+      margin-top: 3rem;
       text-shadow: 0 0 3px #8f00ff55;
-      margin-top: 2rem;
-      padding-bottom: 1rem;
     }
     footer a {
       color: #8f00ff;
       text-decoration: none;
-      transition: color 0.3s ease;
     }
     footer a:hover {
       color: #00ffe7;
       text-decoration: underline;
     }
-
     #cursor {
       position: fixed;
-      top: 0; left: 0;
-      width: 20px; height: 20px;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       pointer-events: none;
       background: linear-gradient(135deg, #8f00ff, #00ffe7);
-      box-shadow:
-        0 0 10px #8f00ff,
-        0 0 20px #00ffe7,
-        0 0 30px #00ffe7;
+      box-shadow: 0 0 10px #8f00ff, 0 0 20px #00ffe7;
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
-      transition: width 0.25s ease, height 0.25s ease;
       z-index: 9999;
+      transition: width 0.25s, height 0.25s;
     }
-    a:hover ~ #cursor, a:focus-visible ~ #cursor {
+    a:hover ~ #cursor {
       width: 40px;
       height: 40px;
-      box-shadow:
-        0 0 25px #00ffe7,
-        0 0 35px #8f00ff,
-        0 0 45px #00ffe7;
     }
-
     @media (max-width: 650px) {
-      .logo {
-        font-size: 2.2rem;
-      }
-      h1 {
-        font-size: 1.8rem;
-      }
-      p.lead {
-        font-size: 1rem;
-        max-width: 90vw;
-      }
-      a.download-btn {
-        font-size: 1.1rem;
-        padding: 0.8rem 2rem;
-      }
+      .logo { font-size: 2.2rem; }
+      h1 { font-size: 1.8rem; }
+      p.lead { font-size: 1rem; }
+      a.download-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
     }
   </style>
 </head>
 <body>
   <canvas id="gridCanvas"></canvas>
-
-  <div id="container" role="main" aria-label="ETS2 Modding Landing Page">
+  <div id="container">
     <div class="logo">MyDadsSoft</div>
     <h1>Next-Level ETS2 Modding Starts Here</h1>
     <p class="lead">Effortlessly install mods, tweak configs, and power up your Euro Truck Simulator 2 experience — all with a single tool.</p>
 
-    <!-- Image preview -->
-    <img src="https://i.imgur.com/bmRAFg9.png" alt="MyDadsSoft Mod App Preview" class="app-preview" />
+    <img src="https://i.imgur.com/bmRAFg9.png" alt="App Screenshot" class="app-screenshot" />
 
-    <!-- Download button -->
-    <a
-      href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="download-btn"
-      aria-label="Download MyDadsSoft Mod Downloader for Windows"
-    >
-      Download for Windows
-    </a>
+    <a href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip"
+       class="download-btn"
+       target="_blank">Download for Windows</a>
   </div>
 
   <footer>
-    Made with ❤️ by MyDadsSoft — Join our
-    <a href="https://discord.gg/3cbMFfxhdS" target="_blank" rel="noopener noreferrer">Discord</a>
-    or check out
-    <a href="https://discord.gg/WwRG7dntfF" target="_blank" rel="noopener noreferrer">Frigo Mods Discord</a>
+    Made with ❤️ by MyDadsSoft —
+    <a href="https://discord.gg/3cbMFfxhdS" target="_blank">Join our Discord</a> or check out
+    <a href="https://discord.gg/WwRG7dntfF" target="_blank">Frigo Mods Discord</a>
   </footer>
 
   <div id="cursor"></div>
 
   <script>
-    document.body.addEventListener('dblclick', () => {
-      document.body.classList.toggle('light');
-    });
-
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.top = e.clientY + 'px';
@@ -290,13 +218,14 @@
       ctx.clearRect(0, 0, w, h);
       ctx.strokeStyle = 'rgba(143, 0, 255, 0.4)';
       ctx.lineWidth = 1;
-      for(let x = 0; x <= w; x += spacing) {
+
+      for (let x = 0; x <= w; x += spacing) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, h);
         ctx.stroke();
       }
-      for(let y = 0; y <= h; y += spacing) {
+      for (let y = 0; y <= h; y += spacing) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(w, y);
@@ -305,7 +234,6 @@
     }
 
     const particles = [];
-    const maxParticles = 100;
     class Particle {
       constructor(x, y) {
         this.x = x;
@@ -318,41 +246,66 @@
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        this.alpha -= 0.01;
+        this.alpha -= 0.015;
       }
       draw(ctx) {
         ctx.beginPath();
-        ctx.fillStyle = `rgba(143, 0, 255, ${this.alpha})`;
-        ctx.shadowColor = '#8f00ff';
-        ctx.shadowBlur = 8;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(143, 0, 255, ${this.alpha.toFixed(2)})`;
+        // Removed shadowBlur for performance:
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
+    // Limit max particles for performance
+    const maxParticles = 120;
+
+    // Throttle particle spawn to max 60 per second
+    let lastSpawn = 0;
+    let mousePos = { x: 0, y: 0 };
+    let isMoving = false;
+
     document.addEventListener('mousemove', e => {
-      for(let i=0; i<5; i++) {
-        if (particles.length < maxParticles) {
-          particles.push(new Particle(e.clientX, e.clientY));
-        }
-      }
+      mousePos.x = e.clientX;
+      mousePos.y = e.clientY;
+      isMoving = true;
+      cursor.style.top = e.clientY + 'px';
+      cursor.style.left = e.clientX + 'px';
     });
+
+    function spawnParticles(timestamp) {
+      if (!lastSpawn) lastSpawn = timestamp;
+      const elapsed = timestamp - lastSpawn;
+
+      if (elapsed > 16) { // roughly 60fps, spawn particles at this rate
+        if (particles.length < maxParticles && isMoving) {
+          // Spawn just 1 particle per tick for smoothness
+          particles.push(new Particle(mousePos.x, mousePos.y));
+        }
+        lastSpawn = timestamp;
+      }
+    }
 
     function updateParticles() {
       drawGrid();
-      for(let i = particles.length - 1; i >= 0; i--) {
+
+      for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
-        p.draw(ctx);
-        if(p.alpha <= 0) particles.splice(i, 1);
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          p.draw(ctx);
+        }
       }
     }
 
-    function animate() {
+    function animate(timestamp) {
+      spawnParticles(timestamp);
       updateParticles();
       requestAnimationFrame(animate);
     }
-    animate();
+    requestAnimationFrame(animate);
   </script>
 </body>
 </html>
