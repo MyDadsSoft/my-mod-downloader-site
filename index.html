@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> MyDadsSoft — ETS2 Modding Revolution</title>
+  <title>MyDadsSoft — ETS2 Modding Revolution</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
     /* Reset */
@@ -11,14 +11,21 @@
       margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
-      width: 100%; height: 100%;
-      background: #0b0b17;
+      width: 100%;
+      min-height: 100%;
+      background: radial-gradient(ellipse at center, #1f004d 0%, #0b0b17 80%);
       color: #eee;
       font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
       user-select: none;
       cursor: none;
-      background: radial-gradient(ellipse at center, #1f004d 0%, #0b0b17 80%);
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
     }
 
     /* Neon Grid Background */
@@ -34,7 +41,8 @@
     /* Container */
     #container {
       position: relative;
-      width: 100vw; height: 100vh;
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -78,7 +86,6 @@
       }
     }
 
-    /* Headline gradient animation */
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
@@ -96,7 +103,6 @@
       100% { background-position: 0% 50%;}
     }
 
-    /* Description text */
     p.lead {
       font-size: 1.2rem;
       color: #ccc;
@@ -105,7 +111,14 @@
       text-shadow: 0 0 5px #8f00ff88;
     }
 
-    /* Neon pulse button */
+    .app-preview {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 12px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 0 15px #00ffe755, 0 0 25px #8f00ff44;
+    }
+
     a.download-btn {
       display: inline-block;
       font-family: 'Orbitron', sans-serif;
@@ -153,11 +166,7 @@
       100% { transform: rotate(25deg) translateX(100%) translateY(100%);}
     }
 
-    /* Footer */
     footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
       text-align: center;
       font-size: 0.85rem;
       color: #666;
@@ -165,6 +174,8 @@
       user-select: none;
       z-index: 15;
       text-shadow: 0 0 3px #8f00ff55;
+      margin-top: 2rem;
+      padding-bottom: 1rem;
     }
     footer a {
       color: #8f00ff;
@@ -176,7 +187,6 @@
       text-decoration: underline;
     }
 
-    /* Custom glowing cursor */
     #cursor {
       position: fixed;
       top: 0; left: 0;
@@ -202,44 +212,6 @@
         0 0 45px #00ffe7;
     }
 
-    /* Dark/light mode */
-    body.light {
-      background: #f0f0f8;
-      color: #222;
-    }
-    body.light .logo {
-      color: #5c00ff;
-      text-shadow: none;
-      animation: none;
-    }
-    body.light h1 {
-      background: linear-gradient(90deg, #5c00ff, #00ccff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s ease infinite;
-    }
-    body.light p.lead {
-      color: #333;
-      text-shadow: none;
-    }
-    body.light a.download-btn {
-      color: #fff;
-      background: linear-gradient(45deg, #5c00ff, #00ccff);
-      box-shadow:
-        0 0 15px #5c00ff,
-        0 0 25px #00ccff;
-    }
-    body.light a.download-btn:hover {
-      box-shadow:
-        0 0 40px #5c00ff,
-        0 0 55px #00ccff;
-    }
-    body.light footer {
-      color: #888;
-      text-shadow: none;
-    }
-
-    /* Responsive */
     @media (max-width: 650px) {
       .logo {
         font-size: 2.2rem;
@@ -262,40 +234,45 @@
   <canvas id="gridCanvas"></canvas>
 
   <div id="container" role="main" aria-label="ETS2 Modding Landing Page">
-    <div class="logo" aria-label="MyDadsSoft Logo with truck emoji"> MyDadsSoft</div>
+    <div class="logo">MyDadsSoft</div>
     <h1>Next-Level ETS2 Modding Starts Here</h1>
     <p class="lead">Effortlessly install mods, tweak configs, and power up your Euro Truck Simulator 2 experience — all with a single tool.</p>
+
+    <!-- Image preview -->
+    <img src="https://i.imgur.com/bmRAFg9.png" alt="MyDadsSoft Mod App Preview" class="app-preview" />
+
+    <!-- Download button -->
     <a
       href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip"
-      target="_blank" rel="noopener noreferrer"
+      target="_blank"
+      rel="noopener noreferrer"
       class="download-btn"
       aria-label="Download MyDadsSoft Mod Downloader for Windows"
-      >Download for Windows</a>
+    >
+      Download for Windows
+    </a>
   </div>
 
   <footer>
     Made with ❤️ by MyDadsSoft — Join our
-    <a href="https://discord.gg/3cbMFfxhdS" target="_blank" rel="noopener noreferrer" aria-label="Join MyDadsSoft Discord">Discord</a>
+    <a href="https://discord.gg/3cbMFfxhdS" target="_blank" rel="noopener noreferrer">Discord</a>
     or check out
-    <a href="https://discord.gg/WwRG7dntfF" target="_blank" rel="noopener noreferrer" aria-label="Join Frigo Mods Discord">Frigo Mods Discord</a>
+    <a href="https://discord.gg/WwRG7dntfF" target="_blank" rel="noopener noreferrer">Frigo Mods Discord</a>
   </footer>
 
   <div id="cursor"></div>
 
   <script>
-    // Dark/light toggle on double-click anywhere
     document.body.addEventListener('dblclick', () => {
       document.body.classList.toggle('light');
     });
 
-    // Custom cursor follow
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.top = e.clientY + 'px';
       cursor.style.left = e.clientX + 'px';
     });
 
-    // Neon grid background canvas
     const gridCanvas = document.getElementById('gridCanvas');
     const ctx = gridCanvas.getContext('2d');
 
@@ -313,7 +290,6 @@
       ctx.clearRect(0, 0, w, h);
       ctx.strokeStyle = 'rgba(143, 0, 255, 0.4)';
       ctx.lineWidth = 1;
-
       for(let x = 0; x <= w; x += spacing) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -328,7 +304,6 @@
       }
     }
 
-    // Particle system reacting to mouse
     const particles = [];
     const maxParticles = 100;
     class Particle {
