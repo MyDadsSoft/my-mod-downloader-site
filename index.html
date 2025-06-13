@@ -177,6 +177,16 @@
       p.lead { font-size: 1rem; }
       a.download-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
     }
+
+    /* Download counter style */
+    #downloadCount {
+      margin-top: 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.1rem;
+      color: #00ffe7;
+      text-shadow: 0 0 8px #00ffe7;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -191,6 +201,8 @@
     <a href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip"
        class="download-btn"
        target="_blank">Download for Windows</a>
+
+    <div id="downloadCount">Downloads so far: ...</div>
   </div>
 
   <footer>
@@ -308,6 +320,35 @@
       requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
+
+    // ====== Download counter integration ======
+    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/'; // Replace with your Cloudflare Worker URL
+
+    async function fetchDownloadCount() {
+      try {
+        const res = await fetch(workerURL);
+        if (!res.ok) throw new Error('Network error');
+        const count = await res.text();
+        document.getElementById('downloadCount').textContent = 'Downloads so far: ' + count;
+      } catch (e) {
+        console.error('Failed to fetch download count', e);
+        document.getElementById('downloadCount').textContent = 'Downloads so far: N/A';
+      }
+    }
+
+    fetchDownloadCount();
+
+    const downloadBtn = document.querySelector('.download-btn');
+    downloadBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await fetch(workerURL, { method: 'POST' });
+      } catch (err) {
+        console.error('Failed to increment download count', err);
+      }
+      window.open(e.target.href, '_blank');
+      fetchDownloadCount();
+    });
   </script>
 </body>
 </html>
