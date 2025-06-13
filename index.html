@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MyDadsSoft Mod Downloader</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
     body {
       margin: 0;
       padding: 0;
@@ -17,26 +19,31 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 3em;
       margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      animation: fadeInDown 1s ease-out;
     }
 
     p {
       font-size: 1.2em;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      animation: fadeInUp 1.2s ease-out;
     }
 
     .btn {
-      background: #00c6ff;
+      display: inline-block;
       background: linear-gradient(to right, #0072ff, #00c6ff);
       padding: 15px 30px;
       color: #fff;
       text-decoration: none;
       border-radius: 50px;
       font-size: 1.2em;
+      margin: 10px;
       box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -46,20 +53,58 @@
       box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
     }
 
+    .discord-btn {
+      background: #5865F2;
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    }
+
+    .discord-btn:hover {
+      box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+    }
+
+    .discord-btn img {
+      vertical-align: middle;
+      width: 20px;
+      margin-right: 10px;
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
       font-size: 0.8em;
       color: #ddd;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeInDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
   <h1>MyDadsSoft's Mod Downloader</h1>
   <p>Get the latest version of the mod downloader below:</p>
+
   <a class="btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" target="_blank">
     Download for Windows
   </a>
+
+  <a class="btn discord-btn" href="https://discord.gg/3cbMFfxhdS" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord Icon">
+    Join our Discord
+  </a>
+
   <footer>Made with ❤️ by MyDadsSoft</footer>
 </body>
 </html>
