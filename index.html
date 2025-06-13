@@ -6,6 +6,13 @@
   <title>MyDadsSoft Mod Downloader</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #8f00ff;
+      --accent: #00ffe7;
+      --bg: #0d0d24;
+      --bg-alt: #1c1b36;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -14,109 +21,103 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #0d0d24, #1c1b36);
+      background: linear-gradient(145deg, var(--bg), var(--bg-alt));
       color: white;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      animation: fadeIn 1.5s ease-in forwards;
+      position: relative;
+      overflow: hidden;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .glow {
+    .glow-bg {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(119,0,255,0.1) 0%, transparent 70%);
-      filter: blur(120px);
-      animation: pulseGlow 6s ease-in-out infinite alternate;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at 30% 30%, rgba(143, 0, 255, 0.15), transparent 70%),
+                  radial-gradient(circle at 70% 70%, rgba(0, 255, 231, 0.1), transparent 70%);
+      filter: blur(100px);
+      animation: moveGlow 20s ease-in-out infinite alternate;
       z-index: 0;
     }
 
-    @keyframes pulseGlow {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(1.1); opacity: 1; }
+    @keyframes moveGlow {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50px, -80px); }
+    }
+
+    .container {
+      z-index: 1;
+      max-width: 900px;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 60px rgba(143, 0, 255, 0.15);
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .logo {
-      position: absolute;
-      top: 20px;
-      left: 40px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.8em;
-      z-index: 2;
-      opacity: 0;
-      animation: fadeInElement 1s ease 0.3s forwards;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(143, 0, 255, 0.5);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
     }
 
     .download-btn {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      background: linear-gradient(to right, #8f00ff, #5b00ff);
-      padding: 12px 28px;
-      border: none;
-      border-radius: 12px;
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      background: linear-gradient(to right, var(--primary), #5b00ff);
       color: white;
-      font-weight: bold;
       text-decoration: none;
-      font-size: 1.1em;
-      box-shadow: 0 0 20px rgba(139, 0, 255, 0.4);
-      z-index: 2;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeInElement 1s ease 0.5s forwards;
+      font-weight: bold;
+      border-radius: 14px;
+      box-shadow: 0 0 25px rgba(139, 0, 255, 0.5);
+      transition: all 0.3s ease;
     }
 
     .download-btn:hover {
-      transform: rotateX(6deg) rotateY(-6deg) scale(1.05);
-      box-shadow: 0 0 30px rgba(139, 0, 255, 0.7);
-    }
-
-    .main-text {
-      z-index: 2;
-      max-width: 800px;
-      padding: 0 20px;
-      opacity: 0;
-      animation: fadeInElement 1s ease 0.8s forwards;
-    }
-
-    .main-text h1 {
-      font-size: 3.2em;
-      font-weight: 700;
-      line-height: 1.3;
-      background: linear-gradient(to right, #8f00ff, #00ffe7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .main-text p {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #ccc;
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 0 40px rgba(139, 0, 255, 0.8);
     }
 
     footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.85em;
-      color: #666;
-      z-index: 2;
-      opacity: 0;
-      animation: fadeInElement 1s ease 1s forwards;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
     }
 
     footer a {
-      color: #8f00ff;
+      color: var(--primary);
       text-decoration: none;
     }
 
@@ -124,25 +125,31 @@
       text-decoration: underline;
     }
 
-    @keyframes fadeInElement {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .download-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
+  <div class="glow-bg"></div>
 
-  <div class="logo">★ MyDadsSoft</div>
-  <a class="download-btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" target="_blank">
-    Download
-  </a>
-
-  <div class="main-text">
+  <div class="container">
+    <div class="logo">★ MyDadsSoft</div>
     <h1>Download the Ultimate Modding Tool for Windows</h1>
     <p>Fast. Lightweight. Reliable. Start modding in seconds with MyDadsSoft's Mod Downloader.</p>
+    <a class="download-btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" target="_blank">
+      Download
+    </a>
+    <footer>
+      Made with ❤️ by MyDadsSoft — Join our <a href="https://discord.gg/3cbMFfxhdS">Discord</a>
+    </footer>
   </div>
-
-  <footer>Made with ❤️ by MyDadsSoft — Join our <a href="https://discord.gg/3cbMFfxhdS">Discord</a></footer>
 </body>
 </html>
