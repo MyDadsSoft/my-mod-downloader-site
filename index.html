@@ -3,22 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Open Graph Metadata for Discord and other platforms -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://my-mod-downloader-site.pages.dev/" />
-  <meta property="og:title" content="MyDadsSoft Mod Downloader" />
-  <meta property="og:description" content="Download the ultimate modding tool for Windows. Fast, lightweight, and reliable." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/MyDadsSoft/my-mod-downloader-site/main/assets/banner.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter Card Metadata -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MyDadsSoft Mod Downloader" />
-  <meta name="twitter:description" content="Download the ultimate modding tool for Windows. Fast, lightweight, and reliable." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/MyDadsSoft/my-mod-downloader-site/main/assets/banner.png" />
-
   <title>MyDadsSoft Mod Downloader</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -40,6 +24,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      animation: fadeIn 1.5s ease-in forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .glow {
@@ -48,7 +38,13 @@
       height: 100%;
       background: radial-gradient(circle, rgba(119,0,255,0.1) 0%, transparent 70%);
       filter: blur(120px);
+      animation: pulseGlow 6s ease-in-out infinite alternate;
       z-index: 0;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.1); opacity: 1; }
     }
 
     .logo {
@@ -58,6 +54,8 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 1.8em;
       z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 0.5s forwards;
     }
 
     .download-btn {
@@ -74,11 +72,15 @@
       font-size: 1.1em;
       box-shadow: 0 0 20px rgba(139, 0, 255, 0.4);
       z-index: 2;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 0.7s forwards;
     }
 
     .download-btn:hover {
-      transform: scale(1.05);
+      transform: rotateX(6deg) rotateY(-6deg) scale(1.05);
       box-shadow: 0 0 30px rgba(139, 0, 255, 0.7);
     }
 
@@ -86,6 +88,8 @@
       z-index: 2;
       max-width: 800px;
       padding: 0 20px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 1s forwards;
     }
 
     .main-text h1 {
@@ -95,6 +99,12 @@
       background: linear-gradient(to right, #8f00ff, #00ffe7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: floatText 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatText {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
     }
 
     .main-text p {
@@ -109,6 +119,8 @@
       font-size: 0.85em;
       color: #666;
       z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 1.2s forwards;
     }
 
     footer a {
