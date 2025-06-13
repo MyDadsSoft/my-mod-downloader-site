@@ -6,128 +6,118 @@
   <title>MyDadsSoft Mod Downloader</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(ellipse at center, #0e0e1c 0%, #0c0b1e 100%);
+      background: linear-gradient(145deg, #0d0d24, #1c1b36);
       color: white;
-      overflow: hidden;
       height: 100vh;
+      overflow: hidden;
       position: relative;
-    }
-
-    .gradient-light {
-      position: absolute;
-      width: 120%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(122,88,255,0.2) 0%, transparent 80%);
-      top: -20%;
-      left: -10%;
-      z-index: 0;
-      filter: blur(100px);
-    }
-
-    header {
-      width: 100%;
       display: flex;
-      justify-content: space-between;
-      padding: 20px 40px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .glow {
       position: absolute;
-      top: 0;
-      z-index: 2;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(119,0,255,0.1) 0%, transparent 70%);
+      filter: blur(120px);
+      z-index: 0;
     }
 
     .logo {
+      position: absolute;
+      top: 20px;
+      left: 40px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.5em;
-      font-weight: 600;
+      font-size: 1.8em;
+      z-index: 2;
     }
 
     .download-btn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
       background: linear-gradient(to right, #8f00ff, #5b00ff);
-      padding: 10px 20px;
+      padding: 12px 28px;
       border: none;
+      border-radius: 12px;
       color: white;
-      border-radius: 10px;
       font-weight: bold;
       text-decoration: none;
-      box-shadow: 0 0 10px rgba(139, 0, 255, 0.6);
-      transition: all 0.3s ease;
+      font-size: 1.1em;
+      box-shadow: 0 0 20px rgba(139, 0, 255, 0.4);
+      z-index: 2;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .download-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(139, 0, 255, 0.9);
+      box-shadow: 0 0 30px rgba(139, 0, 255, 0.7);
     }
 
-    .content {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+    .main-text {
       z-index: 2;
-    }
-
-    .content h1 {
-      font-size: 2.8em;
       max-width: 800px;
-      margin: 0 auto 20px;
+      padding: 0 20px;
     }
 
-    .mockup {
-      background: #181824;
-      border-radius: 20px;
-      padding: 20px;
-      width: 80%;
-      max-width: 900px;
-      margin: 60px auto 0;
-      color: #0ff;
-      font-family: monospace;
-      font-size: 0.85em;
-      box-shadow: 0 0 20px rgba(0,255,255,0.1);
-      z-index: 2;
+    .main-text h1 {
+      font-size: 3.2em;
+      font-weight: 700;
+      line-height: 1.3;
+      background: linear-gradient(to right, #8f00ff, #00ffe7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main-text p {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #ccc;
     }
 
     footer {
       position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
+      bottom: 15px;
+      font-size: 0.85em;
       color: #666;
-      font-size: 0.9em;
       z-index: 2;
+    }
+
+    footer a {
+      color: #8f00ff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="gradient-light"></div>
+  <div class="glow"></div>
 
-  <header>
-    <div class="logo">★ MyDadsSoft</div>
-    <a class="download-btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/latest" target="_blank">
-      Download
-    </a>
-  </header>
+  <div class="logo">★ MyDadsSoft</div>
+  <a class="download-btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/latest" target="_blank">
+    Download
+  </a>
 
-  <div class="content">
-    <h1>The First & Cleanest Mod Downloader For Windows.</h1>
-    <div class="mockup">
-<pre>
--- Example Script View
-local downloader = require("moler.downloader")
-downloader:initialize()
-
-if downloader:hasUpdate() then
-  downloader:update()
-end
-
-print("Ready to mod!")
-</pre>
-    </div>
+  <div class="main-text">
+    <h1>Download the Ultimate Modding Tool for Windows</h1>
+    <p>Fast. Lightweight. Reliable. Start modding in seconds with MyDadsSoft's Mod Downloader.</p>
   </div>
 
-  <footer>Made with ❤️ by MyDadsSoft — Join our <a href="https://discord.gg/3cbMFfxhdSE" style="color:#8f00ff;">Discord</a></footer>
+  <footer>Made with ❤️ by MyDadsSoft — Join our <a href="https://discord.gg/3cbMFfxhdS">Discord</a></footer>
 </body>
 </html>
