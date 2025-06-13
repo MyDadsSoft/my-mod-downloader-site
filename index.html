@@ -4,107 +4,130 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MyDadsSoft Mod Downloader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at center, #0e0e1c 0%, #0c0b1e 100%);
+      color: white;
       overflow: hidden;
+      height: 100vh;
+      position: relative;
     }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
+    .gradient-light {
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(122,88,255,0.2) 0%, transparent 80%);
+      top: -20%;
+      left: -10%;
+      z-index: 0;
+      filter: blur(100px);
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      position: absolute;
+      top: 0;
+      z-index: 2;
+    }
+
+    .logo {
       font-family: 'Orbitron', sans-serif;
-      animation: fadeInDown 1s ease-out;
+      font-size: 1.5em;
+      font-weight: 600;
     }
 
-    p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-      animation: fadeInUp 1.2s ease-out;
-    }
-
-    .btn {
-      display: inline-block;
-      background: linear-gradient(to right, #0072ff, #00c6ff);
-      padding: 15px 30px;
-      color: #fff;
+    .download-btn {
+      background: linear-gradient(to right, #8f00ff, #5b00ff);
+      padding: 10px 20px;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      font-weight: bold;
       text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.2em;
-      margin: 10px;
-      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 10px rgba(139, 0, 255, 0.6);
+      transition: all 0.3s ease;
     }
 
-    .btn:hover {
+    .download-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
+      box-shadow: 0 0 15px rgba(139, 0, 255, 0.9);
     }
 
-    .discord-btn {
-      background: #5865F2;
-      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    .content {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
     }
 
-    .discord-btn:hover {
-      box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+    .content h1 {
+      font-size: 2.8em;
+      max-width: 800px;
+      margin: 0 auto 20px;
     }
 
-    .discord-btn img {
-      vertical-align: middle;
-      width: 20px;
-      margin-right: 10px;
+    .mockup {
+      background: #181824;
+      border-radius: 20px;
+      padding: 20px;
+      width: 80%;
+      max-width: 900px;
+      margin: 60px auto 0;
+      color: #0ff;
+      font-family: monospace;
+      font-size: 0.85em;
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+      z-index: 2;
     }
 
     footer {
       position: absolute;
       bottom: 10px;
-      font-size: 0.8em;
-      color: #ddd;
-      animation: fadeIn 2s ease-in;
-    }
-
-    @keyframes fadeInDown {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      width: 100%;
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
-  <h1>MyDadsSoft's Mod Downloader</h1>
-  <p>Get the latest version of the mod downloader below:</p>
+  <div class="gradient-light"></div>
 
-  <a class="btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" target="_blank">
-    Download for Windows
-  </a>
+  <header>
+    <div class="logo">★ MyDadsSoft</div>
+    <a class="download-btn" href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/latest" target="_blank">
+      Download
+    </a>
+  </header>
 
-  <a class="btn discord-btn" href="https://discord.gg/3cbMFfxhdS" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord Icon">
-    Join our Discord
-  </a>
+  <div class="content">
+    <h1>The First & Cleanest Mod Downloader For Windows.</h1>
+    <div class="mockup">
+<pre>
+-- Example Script View
+local downloader = require("moler.downloader")
+downloader:initialize()
 
-  <footer>Made with ❤️ by MyDadsSoft</footer>
+if downloader:hasUpdate() then
+  downloader:update()
+end
+
+print("Ready to mod!")
+</pre>
+    </div>
+  </div>
+
+  <footer>Made with ❤️ by MyDadsSoft — Join our <a href="https://discord.gg/3cbMFfxhdSE" style="color:#8f00ff;">Discord</a></footer>
 </body>
 </html>
