@@ -214,12 +214,14 @@
   <div id="cursor"></div>
 
   <script>
+    // Cursor follow
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.top = e.clientY + 'px';
       cursor.style.left = e.clientX + 'px';
     });
 
+    // Grid canvas setup
     const gridCanvas = document.getElementById('gridCanvas');
     const ctx = gridCanvas.getContext('2d');
 
@@ -252,6 +254,7 @@
       }
     }
 
+    // Particles
     const particles = [];
     class Particle {
       constructor(x, y) {
@@ -321,33 +324,41 @@
     }
     requestAnimationFrame(animate);
 
-    // ====== Download counter integration ======
-    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/'; // Replace with your Cloudflare Worker URL
+    // Download counter with Cloudflare Worker
+    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/'; // Replace with your deployed Worker URL
+    const downloadCountEl = document.getElementById('downloadCount');
 
     async function fetchDownloadCount() {
       try {
         const res = await fetch(workerURL);
         if (!res.ok) throw new Error('Network error');
         const count = await res.text();
-        document.getElementById('downloadCount').textContent = 'Downloads so far: ' + count;
+        downloadCountEl.textContent = 'Downloads so far: ' + count;
       } catch (e) {
         console.error('Failed to fetch download count', e);
-        document.getElementById('downloadCount').textContent = 'Downloads so far: N/A';
+        downloadCountEl.textContent = 'Downloads so far: N/A';
       }
     }
 
-    fetchDownloadCount();
-
-    const downloadBtn = document.querySelector('.download-btn');
-    downloadBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
+    async function incrementDownloadCount() {
       try {
         await fetch(workerURL, { method: 'POST' });
-      } catch (err) {
-        console.error('Failed to increment download count', err);
+        await fetchDownloadCount();
+      } catch (e) {
+        console.error('Failed to increment download count', e);
       }
-      window.open(e.target.href, '_blank');
-      fetchDownloadCount();
+    }
+
+    // Initial fetch
+    fetchDownloadCount();
+
+    // Poll every 3 seconds to get live updates
+    setInterval(fetchDownloadCount, 3000);
+
+    const downloadBtn = document.querySelector('.download-btn');
+    downloadBtn.addEventListener('click', (e) => {
+      incrementDownloadCount();
+      // Let download happen as normal
     });
   </script>
 </body>
