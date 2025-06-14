@@ -14,16 +14,31 @@
     html, body {
       width: 100%;
       min-height: 100%;
-      background: radial-gradient(ellipse at center, #1f004d 0%, #0b0b17 80%);
+      background: #0b0c10;
       color: #eee;
       font-family: 'Share Tech Mono', monospace;
       user-select: none;
       cursor: none;
-      overflow: auto; /* Allow scrolling */
-      scrollbar-width: none; /* Firefox - hide scrollbar */
-      -ms-overflow-style: none; /* IE/Edge - hide scrollbar */
+      overflow: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
-    /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.015) 0, rgba(0,0,0,0.08) 1px, transparent 2px);
+      animation: scanlines 1.5s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes scanlines {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(2px); }
+    }
     body::-webkit-scrollbar {
       display: none;
     }
@@ -35,40 +50,40 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      filter: drop-shadow(0 0 6px #8f00ff);
+      filter: drop-shadow(0 0 5px #6a009988);
+      opacity: 0.4;
     }
     #container {
       position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       z-index: 10;
       text-align: center;
       padding: 3rem 1rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 3.5rem;
-      color: #8f00ff;
-      text-shadow: 0 0 5px #8f00ff, 0 0 10px #8f00ff, 0 0 20px #00ffe7;
-      animation: flicker 3s infinite;
+      color: #6a0099;
+      text-shadow: 0 0 10px #6a0099, 0 0 20px #00ffe7;
+      animation: pulse 2.5s ease-in-out infinite;
       margin-bottom: 1rem;
     }
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 22%, 24%, 55% {
-        opacity: 0.6;
-      }
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px #6a0099, 0 0 20px #00ffe7; }
+      50% { text-shadow: 0 0 15px #4a0077, 0 0 25px #00ffe7; }
     }
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       font-size: 2.8rem;
-      background: linear-gradient(90deg, #8f00ff, #00ffe7, #8f00ff);
+      background: linear-gradient(90deg, #6a0099, #00ffe7, #6a0099);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -85,31 +100,36 @@
       color: #ccc;
       max-width: 600px;
       margin-bottom: 2rem;
-      text-shadow: 0 0 5px #8f00ff88;
+      text-shadow: 0 0 6px #6a009988;
     }
     .app-screenshot {
       max-width: 90%;
       height: auto;
       margin-bottom: 2rem;
-      border: 2px solid #8f00ff44;
-      box-shadow: 0 0 20px #8f00ff66;
-      border-radius: 12px;
+      border: 2px solid #6a009944;
+      box-shadow: 0 0 30px #6a009988;
+      border-radius: 16px;
+      transition: transform 0.3s ease;
+    }
+    .app-screenshot:hover {
+      transform: scale(1.02);
     }
     a.download-btn {
-      display: inline-block;
       font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
       font-size: 1.3rem;
       color: #fff;
-      background: linear-gradient(45deg, #8f00ff, #00ffe7);
-      padding: 0.9rem 3rem;
-      border-radius: 40px;
-      box-shadow: 0 0 10px #8f00ff, 0 0 20px #00ffe7;
+      background: linear-gradient(45deg, #6a0099, #00ffe7);
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      box-shadow: 0 0 20px #6a0099, 0 0 40px #00ffe7;
       text-decoration: none;
-      user-select: none;
-      transition: transform 0.3s ease, box-shadow 0.4s ease;
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+    }
+    a.download-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #6a0099, 0 0 60px #00ffe7;
     }
     a.download-btn::before {
       content: "";
@@ -122,70 +142,57 @@
       transform: rotate(25deg);
       animation: shine 3s linear infinite;
       pointer-events: none;
-      border-radius: 40px;
-      opacity: 0.7;
-    }
-    a.download-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #8f00ff, 0 0 40px #00ffe7;
-      text-shadow: 0 0 10px #8f00ff;
+      border-radius: inherit;
     }
     @keyframes shine {
       0% { transform: rotate(25deg) translateX(-100%) translateY(-100%); }
       100% { transform: rotate(25deg) translateX(100%) translateY(100%); }
     }
+    #cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #00ffe7, #6a0099);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 10px #00ffe7, 0 0 20px #6a0099;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease;
+      pointer-events: none;
+      z-index: 9999;
+    }
     footer {
-      width: 100%;
-      text-align: center;
-      font-size: 0.85rem;
+      margin-top: 4rem;
+      font-size: 0.9rem;
       color: #666;
-      font-family: 'Share Tech Mono', monospace;
-      user-select: none;
-      margin-top: 3rem;
-      text-shadow: 0 0 3px #8f00ff55;
+      text-shadow: 0 0 3px #6a009955;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.6;
     }
     footer a {
-      color: #8f00ff;
+      color: #6a0099;
       text-decoration: none;
+      margin: 0 0.25rem;
     }
     footer a:hover {
       color: #00ffe7;
       text-decoration: underline;
     }
-    #cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      pointer-events: none;
-      background: linear-gradient(135deg, #8f00ff, #00ffe7);
-      box-shadow: 0 0 10px #8f00ff, 0 0 20px #00ffe7;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      z-index: 9999;
-      transition: width 0.25s, height 0.25s;
-    }
-    a:hover ~ #cursor {
-      width: 40px;
-      height: 40px;
-    }
-    @media (max-width: 650px) {
-      .logo { font-size: 2.2rem; }
-      h1 { font-size: 1.8rem; }
-      p.lead { font-size: 1rem; }
-      a.download-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
-    }
-
-    /* Download counter style */
     #downloadCount {
       margin-top: 1rem;
-      font-family: 'Share Tech Mono', monospace;
       font-size: 1.1rem;
       color: #00ffe7;
-      text-shadow: 0 0 8px #00ffe7;
-      user-select: none;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+    @media (max-width: 650px) {
+      .logo { font-size: 2rem; }
+      h1 { font-size: 1.6rem; }
+      p.lead { font-size: 1rem; }
+      a.download-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
     }
   </style>
 </head>
@@ -195,36 +202,30 @@
     <div class="logo">MyDadsSoft</div>
     <h1>Next-Level ETS2 Modding Starts Here</h1>
     <p class="lead">Effortlessly install mods, tweak configs, and power up your Euro Truck Simulator 2 experience — all with a single tool.</p>
-
     <img src="https://files.fbi.cyou/content/cdn/WpaYwOcsEecj.gif" alt="App Screenshot" class="app-screenshot" />
-
-    <a href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip"
-       class="download-btn"
-       target="_blank">Download for Windows</a>
-
+    <a href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" class="download-btn" target="_blank">Download for Windows</a>
     <div id="downloadCount">Downloads so far: ...</div>
   </div>
-
   <footer>
     Made with ❤️ by MyDadsSoft —
     <a href="https://discord.gg/3cbMFfxhdS" target="_blank">Join our Discord</a> or check out
     <a href="https://discord.gg/WwRG7dntfF" target="_blank">Frigo Mods Discord</a>
     <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_ID" class="support-btn" target="_blank">💖 Donate via PayPal</a>
   </footer>
-
   <div id="cursor"></div>
 
   <script>
-    // Cursor follow
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.top = e.clientY + 'px';
       cursor.style.left = e.clientX + 'px';
     });
 
-    // Grid canvas setup
     const gridCanvas = document.getElementById('gridCanvas');
     const ctx = gridCanvas.getContext('2d');
+
+    let offsetX = 0;
+    let offsetY = 0;
 
     function resizeGrid() {
       gridCanvas.width = window.innerWidth;
@@ -237,17 +238,18 @@
       const w = gridCanvas.width;
       const h = gridCanvas.height;
       const spacing = 40;
+      offsetX += 0.15;
+      offsetY += 0.1;
       ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(143, 0, 255, 0.4)';
+      ctx.strokeStyle = 'rgba(106, 0, 153, 0.4)';
       ctx.lineWidth = 1;
-
-      for (let x = 0; x <= w; x += spacing) {
+      for (let x = -spacing + (offsetX % spacing); x < w; x += spacing) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, h);
         ctx.stroke();
       }
-      for (let y = 0; y <= h; y += spacing) {
+      for (let y = -spacing + (offsetY % spacing); y < h; y += spacing) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(w, y);
@@ -255,7 +257,6 @@
       }
     }
 
-    // Particles
     const particles = [];
     class Particle {
       constructor(x, y) {
@@ -273,7 +274,7 @@
       }
       draw(ctx) {
         ctx.beginPath();
-        ctx.fillStyle = `rgba(143, 0, 255, ${this.alpha.toFixed(2)})`;
+        ctx.fillStyle = `rgba(106, 0, 153, ${this.alpha.toFixed(2)})`;
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -288,25 +289,19 @@
       mousePos.x = e.clientX;
       mousePos.y = e.clientY;
       isMoving = true;
-      cursor.style.top = e.clientY + 'px';
-      cursor.style.left = e.clientX + 'px';
     });
 
     function spawnParticles(timestamp) {
       if (!lastSpawn) lastSpawn = timestamp;
       const elapsed = timestamp - lastSpawn;
-
-      if (elapsed > 16) {
-        if (particles.length < maxParticles && isMoving) {
-          particles.push(new Particle(mousePos.x, mousePos.y));
-        }
+      if (elapsed > 16 && particles.length < maxParticles && isMoving) {
+        particles.push(new Particle(mousePos.x, mousePos.y));
         lastSpawn = timestamp;
       }
     }
 
     function updateParticles() {
       drawGrid();
-
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
@@ -325,18 +320,15 @@
     }
     requestAnimationFrame(animate);
 
-    // Download counter with Cloudflare Worker
-    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/'; // Replace with your deployed Worker URL
+    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/';
     const downloadCountEl = document.getElementById('downloadCount');
 
     async function fetchDownloadCount() {
       try {
         const res = await fetch(workerURL);
-        if (!res.ok) throw new Error('Network error');
         const count = await res.text();
         downloadCountEl.textContent = 'Downloads so far: ' + count;
-      } catch (e) {
-        console.error('Failed to fetch download count', e);
+      } catch {
         downloadCountEl.textContent = 'Downloads so far: N/A';
       }
     }
@@ -345,22 +337,12 @@
       try {
         await fetch(workerURL, { method: 'POST' });
         await fetchDownloadCount();
-      } catch (e) {
-        console.error('Failed to increment download count', e);
-      }
+      } catch {}
     }
 
-    // Initial fetch
     fetchDownloadCount();
-
-    // Poll every 3 seconds to get live updates
-    setInterval(fetchDownloadCount, 3000);
-
-    const downloadBtn = document.querySelector('.download-btn');
-    downloadBtn.addEventListener('click', (e) => {
-      incrementDownloadCount();
-      // Let download happen as normal
-    });
+    setInterval(fetchDownloadCount, 5000);
+    document.querySelector('.download-btn').addEventListener('click', incrementDownloadCount);
   </script>
 </body>
 </html>
