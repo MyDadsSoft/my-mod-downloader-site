@@ -114,7 +114,8 @@
     .app-screenshot:hover {
       transform: scale(1.02);
     }
-    a.download-btn {
+    a.download-btn,
+    a.kofi-btn {
       font-family: 'Orbitron', sans-serif;
       font-size: 1.3rem;
       color: #fff;
@@ -126,12 +127,15 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      margin-top: 1rem;
     }
-    a.download-btn:hover {
+    a.download-btn:hover,
+    a.kofi-btn:hover {
       transform: scale(1.1);
       box-shadow: 0 0 30px #6a0099, 0 0 60px #00ffe7;
     }
-    a.download-btn::before {
+    a.download-btn::before,
+    a.kofi-btn::before {
       content: "";
       position: absolute;
       top: -50%;
@@ -192,7 +196,7 @@
       .logo { font-size: 2rem; }
       h1 { font-size: 1.6rem; }
       p.lead { font-size: 1rem; }
-      a.download-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
+      a.download-btn, a.kofi-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
     }
   </style>
 </head>
@@ -204,6 +208,7 @@
     <p class="lead">Effortlessly install mods, tweak configs, and power up your Euro Truck Simulator 2 experience — all with a single tool.</p>
     <img src="https://files.fbi.cyou/content/cdn/WpaYwOcsEecj.gif" alt="App Screenshot" class="app-screenshot" />
     <a href="https://github.com/MyDadsSoft/MyDadsSoftsModDownloader/releases/download/2.0.4/MyDadsSoft.Mod.Downloader.zip" class="download-btn" target="_blank">Download for Windows</a>
+    <a href="https://ko-fi.com/mydadssoft" class="kofi-btn" target="_blank">☕ Support us on Ko-fi</a>
     <div id="downloadCount">Downloads so far: ...</div>
   </div>
   <footer>
@@ -213,7 +218,6 @@
     <a href="https://ko-fi.com/mydadssoft" class="support-btn" target="_blank">💖 Donate via Ko-fi</a>
   </footer>
   <div id="cursor"></div>
-
   <script>
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
