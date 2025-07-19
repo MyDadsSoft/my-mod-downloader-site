@@ -3,347 +3,272 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MyDadsSoft — ETS2 Modding Revolution</title>
+  <title>MyDadsSoft — Game Enhancer Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --primary: #7b2ff7;
+      --accent: #00f0ff;
+      --bg: #0a0a0a;
+      --glass: rgba(255, 255, 255, 0.03);
+      --text: #e4e4e4;
+      --success: #00c957;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
+
     html, body {
-      width: 100%;
-      min-height: 100%;
-      background: #0b0c10;
-      color: #eee;
       font-family: 'Share Tech Mono', monospace;
-      user-select: none;
-      cursor: none;
-      overflow: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      background-color: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.015) 0, rgba(0,0,0,0.08) 1px, transparent 2px);
-      animation: scanlines 1.5s linear infinite;
-      z-index: 1;
-      pointer-events: none;
-    }
-    @keyframes scanlines {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(2px); }
-    }
-    body::-webkit-scrollbar {
-      display: none;
-    }
-    #gridCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      filter: drop-shadow(0 0 5px #6a009988);
-      opacity: 0.4;
-    }
-    #container {
-      position: relative;
-      z-index: 10;
+
+    header {
+      padding: 4rem 1rem 2rem;
       text-align: center;
-      padding: 3rem 1rem 6rem;
+    }
+
+    .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      color: var(--primary);
+      text-shadow: 0 0 18px var(--primary);
+    }
+
+    .subtitle {
+      color: var(--accent);
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px var(--accent);
+      margin-top: 0.4rem;
+    }
+
+    .tabs {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 1.5s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      color: #6a0099;
-      text-shadow: 0 0 10px #6a0099, 0 0 20px #00ffe7;
-      animation: pulse 2.5s ease-in-out infinite;
-      margin-bottom: 1rem;
-    }
-    @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 10px #6a0099, 0 0 20px #00ffe7; }
-      50% { text-shadow: 0 0 15px #4a0077, 0 0 25px #00ffe7; }
-    }
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 2.8rem;
-      background: linear-gradient(90deg, #6a0099, #00ffe7, #6a0099);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s ease infinite;
-      margin-bottom: 1rem;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    p.lead {
-      font-size: 1.2rem;
-      color: #ccc;
-      max-width: 600px;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 6px #6a009988;
-    }
-    .app-screenshot {
-      max-width: 90%;
-      height: auto;
-      margin-bottom: 2rem;
-      border: 2px solid #6a009944;
-      box-shadow: 0 0 30px #6a009988;
-      border-radius: 16px;
-      transition: transform 0.3s ease;
-    }
-    .app-screenshot:hover {
-      transform: scale(1.02);
-    }
-    a.download-btn,
-    a.kofi-btn {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      color: #fff;
-      background: linear-gradient(45deg, #6a0099, #00ffe7);
-      padding: 1rem 3rem;
-      border-radius: 50px;
-      box-shadow: 0 0 20px #6a0099, 0 0 40px #00ffe7;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      margin-top: 1rem;
-    }
-    a.download-btn:hover,
-    a.kofi-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #6a0099, 0 0 60px #00ffe7;
-    }
-    a.download-btn::before,
-    a.kofi-btn::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
-      transform: rotate(25deg);
-      animation: shine 3s linear infinite;
-      pointer-events: none;
-      border-radius: inherit;
-    }
-    @keyframes shine {
-      0% { transform: rotate(25deg) translateX(-100%) translateY(-100%); }
-      100% { transform: rotate(25deg) translateX(100%) translateY(100%); }
-    }
-    #cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #00ffe7, #6a0099);
-      mix-blend-mode: screen;
-      box-shadow: 0 0 10px #00ffe7, 0 0 20px #6a0099;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    footer {
-      margin-top: 4rem;
-      font-size: 0.9rem;
-      color: #666;
-      text-shadow: 0 0 3px #6a009955;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
-      line-height: 1.6;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
     }
-    footer a {
-      color: #6a0099;
+
+    .tab-btn {
+      background: var(--glass);
+      border: 2px solid transparent;
+      padding: 0.8rem 1.8rem;
+      border-radius: 999px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 0 16px var(--accent);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 50px rgba(0, 255, 255, 0.05);
+      padding: 2rem;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .card p {
+      color: #ccc;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .status {
+      background: var(--success);
+      color: #fff;
+      padding: 0.4rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 12px var(--success);
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #333;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
       text-decoration: none;
-      margin: 0 0.25rem;
+      display: inline-block;
+      box-shadow: 0 0 20px var(--primary);
+      transition: all 0.3s ease;
     }
+
+    .download-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px var(--accent);
+    }
+
+    .download-count {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: var(--accent);
+      text-shadow: 0 0 6px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
     footer a:hover {
-      color: #00ffe7;
+      color: var(--accent);
       text-decoration: underline;
     }
-    #downloadCount {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      color: #00ffe7;
-      text-shadow: 0 0 10px #00ffe7;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 650px) {
-      .logo { font-size: 2rem; }
-      h1 { font-size: 1.6rem; }
-      p.lead { font-size: 1rem; }
-      a.download-btn, a.kofi-btn { font-size: 1.1rem; padding: 0.8rem 2rem; }
+
+    @media (max-width: 600px) {
+      .brand {
+        font-size: 2.2rem;
+      }
+      .card img {
+        max-height: 400px;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="gridCanvas"></canvas>
-  <div id="container">
-    <div class="logo">MyDadsSoft</div>
-    <h1>Next-Level ETS2 Modding Starts Here</h1>
-    <p class="lead">Effortlessly install mods, tweak configs, and power up your Euro Truck Simulator 2 experience — all with a single tool.</p>
-    <img src="https://files.fbi.cyou/content/cdn/WpaYwOcsEecj.gif" alt="App Screenshot" class="app-screenshot" />
-    <a href="https://modsfire.com/K4n869m653W1s9r" class="download-btn" target="_blank">Download for Windows</a>
-    <div id="downloadCount">Downloads so far: ...</div>
+  <header>
+    <div class="brand">MyDadsSoft</div>
+    <div class="subtitle">Modern Game Tools. Undetected. Unmatched.</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('ets2')">ETS2 Tool</button>
+    <button class="tab-btn" onclick="showTab('r6')">R6 Recoil Tool</button>
   </div>
+
+  <main class="container">
+    <!-- ETS2 Card -->
+    <div class="card active" id="ets2">
+      <h2>ETS2 Mod Manager</h2>
+      <p>One-click installs, advanced config tweaks, and streamlined mod optimization for Euro Truck Simulator 2.</p>
+      <img src="https://files.fbi.cyou/content/cdn/WpaYwOcsEecj.gif" alt="ETS2 Mod Tool Screenshot">
+      <a class="download-btn" href="#" onclick="handleETS2Download()">Download</a>
+      <div class="download-count" id="ets2Count">Downloads: ...</div>
+    </div>
+
+    <!-- R6 Card -->
+    <div class="card" id="r6">
+      <h2>Rainbow Six Recoil Tool</h2>
+      <p>Silent. Precise. Safe.<br>Destroy your lobbies with undetectable recoil control built for ranked play.</p>
+      <div class="status">✅ Undetected</div>
+      <img src="https://files.fbi.cyou/content/cdn/lZStNousNvaL.png" alt="R6 Tool Full Screenshot">
+      <a class="download-btn" href="#" onclick="handleR6Download()">Download</a>
+      <div class="download-count" id="r6Count">Downloads: ...</div>
+    </div>
+  </main>
+
   <footer>
-    Made with ❤️ by MyDadsSoft —
-    <a href="https://discord.gg/3cbMFfxhdS" target="_blank">Join our Discord</a> or check out
+    © 2025 MyDadsSoft — <a href="https://discord.gg/3cbMFfxhdS" target="_blank">Join our Discord</a>
   </footer>
-  <div id="cursor"></div>
+
   <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = e.clientY + 'px';
-      cursor.style.left = e.clientX + 'px';
-    });
+    const ets2URL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/';
+    const r6URL = 'https://r6counter.ifruitapp666.workers.dev/';
+    const ets2Link = 'https://modsfire.com/K4n869m653W1s9r';
+    const r6Link = 'https://modsfire.com/0J3g3G8TbTm25HQ';
 
-    const gridCanvas = document.getElementById('gridCanvas');
-    const ctx = gridCanvas.getContext('2d');
-
-    let offsetX = 0;
-    let offsetY = 0;
-
-    function resizeGrid() {
-      gridCanvas.width = window.innerWidth;
-      gridCanvas.height = window.innerHeight;
-    }
-    resizeGrid();
-    window.addEventListener('resize', resizeGrid);
-
-    function drawGrid() {
-      const w = gridCanvas.width;
-      const h = gridCanvas.height;
-      const spacing = 40;
-      offsetX += 0.15;
-      offsetY += 0.1;
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(106, 0, 153, 0.4)';
-      ctx.lineWidth = 1;
-      for (let x = -spacing + (offsetX % spacing); x < w; x += spacing) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-      }
-      for (let y = -spacing + (offsetY % spacing); y < h; y += spacing) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-    }
-
-    const particles = [];
-    class Particle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 2 + 1;
-        this.vx = (Math.random() - 0.5) * 0.6;
-        this.vy = (Math.random() - 0.5) * 0.6;
-        this.alpha = 1;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.alpha -= 0.015;
-      }
-      draw(ctx) {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(106, 0, 153, ${this.alpha.toFixed(2)})`;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const maxParticles = 120;
-    let lastSpawn = 0;
-    let mousePos = { x: 0, y: 0 };
-    let isMoving = false;
-
-    document.addEventListener('mousemove', e => {
-      mousePos.x = e.clientX;
-      mousePos.y = e.clientY;
-      isMoving = true;
-    });
-
-    function spawnParticles(timestamp) {
-      if (!lastSpawn) lastSpawn = timestamp;
-      const elapsed = timestamp - lastSpawn;
-      if (elapsed > 16 && particles.length < maxParticles && isMoving) {
-        particles.push(new Particle(mousePos.x, mousePos.y));
-        lastSpawn = timestamp;
-      }
-    }
-
-    function updateParticles() {
-      drawGrid();
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.update();
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-        } else {
-          p.draw(ctx);
-        }
-      }
-    }
-
-    function animate(timestamp) {
-      spawnParticles(timestamp);
-      updateParticles();
-      requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
-
-    const workerURL = 'https://frosty-truth-a4a0.ifruitapp666.workers.dev/';
-    const downloadCountEl = document.getElementById('downloadCount');
-
-    async function fetchDownloadCount() {
+    async function fetchCount(url, el) {
       try {
-        const res = await fetch(workerURL);
+        const res = await fetch(url);
         const count = await res.text();
-        downloadCountEl.textContent = 'Downloads so far: ' + count;
+        document.getElementById(el).textContent = 'Downloads: ' + count;
       } catch {
-        downloadCountEl.textContent = 'Downloads so far: N/A';
+        document.getElementById(el).textContent = 'Downloads: N/A';
       }
     }
 
-    async function incrementDownloadCount() {
+    fetchCount(ets2URL, 'ets2Count');
+    fetchCount(r6URL, 'r6Count');
+
+    async function handleETS2Download() {
       try {
-        await fetch(workerURL, { method: 'POST' });
-        await fetchDownloadCount();
-      } catch {}
+        await fetch(ets2URL, { method: 'POST' });
+      } catch (e) {
+        console.warn('ETS2 counter failed to update:', e);
+      } finally {
+        window.open(ets2Link, '_blank');
+      }
     }
 
-    fetchDownloadCount();
-    setInterval(fetchDownloadCount, 5000);
-    document.querySelector('.download-btn').addEventListener('click', incrementDownloadCount);
+    async function handleR6Download() {
+      try {
+        await fetch(r6URL, { method: 'POST' });
+      } catch (e) {
+        console.warn('R6 counter failed to update:', e);
+      } finally {
+        window.open(r6Link, '_blank');
+      }
+    }
+
+    function showTab(id) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
   </script>
 </body>
 </html>
